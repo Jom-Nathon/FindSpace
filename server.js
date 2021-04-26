@@ -6,6 +6,7 @@ const flash = require("express-flash");
 const session = require("express-session");
 require("dotenv").config();
 const app = express();
+const cors = require("cors")
 
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
@@ -20,6 +21,8 @@ const PORT = process.env.PORT || 3000;
 
 const initializePassport = require("./passportConfig");
 const { callbackPromise } = require("nodemailer/lib/shared");
+app.use(cors());
+
 
 initializePassport(passport);
 
