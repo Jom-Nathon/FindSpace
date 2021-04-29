@@ -20,7 +20,6 @@ var transporter = nodemailer.createTransport({
 const PORT = process.env.PORT || 3000;
 
 const initializePassport = require("./passportConfig");
-const { callbackPromise } = require("nodemailer/lib/shared");
 app.use(cors());
 
 
