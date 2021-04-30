@@ -561,8 +561,7 @@ app.post("/users/register", async (req, res) => {
   }
 });
 
-app.post(
-  "/users/login",
+app.post("/users/login",
   passport.authenticate("local", {
     successRedirect: "/users/dashboard",
     failureRedirect: "/users/login",
