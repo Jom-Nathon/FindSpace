@@ -164,14 +164,11 @@ app.get("/users/profileManage/changeEmail", checkNotAuthenticated, (req, res) =>
   res.render("profileManage/changeEmail.ejs");
 });
 
-// app.get("/users/profileManage/changePassword", (req, res) => {
-//   // console.log(req.isAuthenticated());
-//   res.render("profileManage/changePassword.ejs");
-// });
-
-app.get("/users/profileManage/changePassword/:email", (req, res) => {
+app.get("/users/profileManage/changePassword", (req, res) => {
   // console.log(req.isAuthenticated());
-  res.render("profileManage/changePassword.ejs");
+  let str = '/users/profileManage/changePassword?email='+req.user.email;
+  console.log(str);
+  res.render(str);
 });
 
 app.get("/users/profileManage/changeUsername", checkNotAuthenticated, (req, res) => {
@@ -247,9 +244,9 @@ app.post("/users/forgotPassword", async (req, res) => {
 
 app.post("/users/profileManage/changePassword", async (req, res) => {
   let { password, password2 } = req.body;
+  let email = req.params.email;
 
   let errors = [];
-  let email = req.user.email;
   console.log({
     password,
     password2
@@ -298,7 +295,7 @@ app.post("/users/profileManage/changePassword/:email", async (req, res) => {
 
   let errors = [];
   let email = req.params.email;
-  console.log(email);
+  console.log('cat'+email);
   console.log({
     password,
     password2

@@ -26,5 +26,8 @@
     "nodemon": "^2.0.7"
   },
   "keywords": [],
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": "12.13.0"
+  }
 }
