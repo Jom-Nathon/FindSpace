@@ -166,9 +166,13 @@ app.get("/users/profileManage/changeEmail", checkNotAuthenticated, (req, res) =>
 
 app.get("/users/profileManage/changePassword", (req, res) => {
   // console.log(req.isAuthenticated());
-  let str = '/users/profileManage/changePassword?email='+req.user.email;
-  console.log(str);
-  res.render(str);
+  res.render("profileManage/changePassword.ejs");
+});
+
+app.get("/users/profileManage/passwordReset/:email", (req, res) => {
+  // console.log(req.isAuthenticated());
+  console.log(req.params.email);
+  res.render("profileManage/passwordReset.ejs", {email : req.params.email});
 });
 
 app.get("/users/profileManage/changeUsername", checkNotAuthenticated, (req, res) => {
@@ -230,7 +234,7 @@ app.post("/users/forgotPassword", async (req, res) => {
       transporter.sendMail({from:"prayforchulatinder@gmail.com",
                             to: email,
                             subject:"Findspace Password reset",
-                            html: `<h1>Click the link below you stupid</h1><a href="http://localhost:3000/users/profileManage/changePassword?email=${email}">LINK</a>`
+                            html: `<h1>Click the link below you stupid</h1><a href="http://localhost:3000/users/profileManage/passwordReset?email=${email}">LINK</a>`
                           }, function(error, info){
         if (error) {
           console.log(error);
@@ -244,7 +248,7 @@ app.post("/users/forgotPassword", async (req, res) => {
 
 app.post("/users/profileManage/changePassword", async (req, res) => {
   let { password, password2 } = req.body;
-  let email = req.params.email;
+  let email = req.user.email;
 
   let errors = [];
   console.log({
@@ -290,12 +294,10 @@ app.post("/users/profileManage/changePassword", async (req, res) => {
   }
 });
 
-app.post("/users/profileManage/changePassword/:email", async (req, res) => {
-  let { password, password2 } = req.body;
-
+app.post("/users/profileManage/passwordReset/", async (req, res) => {
+  let { password, password2, email } = req.body;
   let errors = [];
-  let email = req.params.email;
-  console.log('cat'+email);
+  console.log(email);
   console.log({
     password,
     password2
